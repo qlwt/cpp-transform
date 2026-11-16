@@ -18,10 +18,10 @@ struct Offset {
         : raw(raw) { }
 
     inline Offset(std::size_t raw, bool flag_const) noexcept
-        : raw(raw | ((std::size_t)flag_const << 63)) {}
+        : raw(raw | ((std::size_t)flag_const << (sizeof(std::size_t) * 8 - 1))) {}
 
     inline bool flag_const() const noexcept {
-        return this->raw >> 63;
+        return this->raw >> (sizeof(std::size_t) * 8 - 1);
     };
 
     inline bool flag_state() const noexcept {
@@ -29,7 +29,7 @@ struct Offset {
     };
 
     inline std::size_t get() const noexcept {
-        static constexpr std::size_t flag_const = 1lu << 63;
+        static constexpr std::size_t flag_const = 1llu << (sizeof(std::size_t) * 8 - 1);
         static constexpr std::size_t nflag_const = ~flag_const;
 
         return this->raw & nflag_const;

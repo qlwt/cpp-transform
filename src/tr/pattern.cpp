@@ -78,8 +78,8 @@ struct FramePatCross : FramePat {
         : FramePat(), cross_width(cross_width), screen_width(screen_width), screen_height(screen_height) {}
 
     img::Pixel px_let(long x, long y) const override {
-        long width_anchor = this->screen_width >> 1;
-        long height_anchor = this->screen_height >> 1;
+        long long width_anchor = this->screen_width >> 1;
+        long long height_anchor = this->screen_height >> 1;
 
         if(x >= (width_anchor - this->cross_width) && x < (width_anchor + this->cross_width)) {
             return { 0x00, 0x00, 0xff, };

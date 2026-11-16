@@ -7,7 +7,7 @@ template <typename T, short Dir>
 struct PtrRel {
     static_assert(Dir == 1 || Dir == -1, "PtrRel::Dir can be either 1 or -1");
 
-    static inline long size_raw(PtrRel<T, Dir> start, PtrRel<T, Dir> end) noexcept {
+    static inline long long size_raw(PtrRel<T, Dir> start, PtrRel<T, Dir> end) noexcept {
         if constexpr (Dir == 1) {
             return end.offset - start.offset;
         } else if constexpr (Dir == -1) {
@@ -15,11 +15,11 @@ struct PtrRel {
         }
     }
 
-    static inline long size_list(PtrRel<T, Dir> start, PtrRel<T, Dir> end) noexcept {
+    static inline long long size_list(PtrRel<T, Dir> start, PtrRel<T, Dir> end) noexcept {
         return PtrRel<T, Dir>::size_raw(start, end) / sizeof(T *);
     }
 
-    long offset;
+    long long offset;
 
     inline T *ptr_let(void *memory) const noexcept {
         if constexpr (Dir == 1) {
@@ -29,11 +29,11 @@ struct PtrRel {
         }
     }
 
-    inline void shift_raw(long shift) noexcept {
+    inline void shift_raw(long long shift) noexcept {
         this->offset += shift;
     }
 
-    inline void shift_list(long shift) noexcept {
+    inline void shift_list(long long shift) noexcept {
         this->offset += shift * sizeof(T *);
     }
 };

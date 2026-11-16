@@ -632,8 +632,8 @@ std::expected<NumValue, Error> sxm::feval::eval_mut(const char *src, EvalMut_Con
                         tstate.parent,
                         { name.p_start, name.p_end, },
                         {
-                            { (mem_arg.br_now - mem_arg.range.p_start) * (long)sizeof(Node **) },
-                            { (mem_arg.br_now - mem_arg.range.p_start + 1) * (long)sizeof(Node **) },
+                            { (mem_arg.br_now - mem_arg.range.p_start) * (long long)sizeof(Node **) },
+                            { (mem_arg.br_now - mem_arg.range.p_start + 1) * (long long)sizeof(Node **) },
                         },
                     };
 

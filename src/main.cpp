@@ -20,7 +20,7 @@ void fill(tr::ArgConfig &config) {
 
     std::atomic<std::size_t> index { 0 };
 
-    std::printf("Generating %u Frames across %lu threads\n", config.frames_amount, thread_size);
+    std::printf("Generating %u Frames across %llu threads\n", config.frames_amount, thread_size);
 
     for (std::size_t thread_index = 0; thread_index < thread_size; ++thread_index) {
         thread_list.emplace_back([&]() -> void {
@@ -39,7 +39,7 @@ void fill(tr::ArgConfig &config) {
                 }
 
                 std::filesystem::path filepath { config.dirpath };
-                std::ofstream fout { config.dirpath / std::format("frame_{:04}.bmp", frame_index_local) };
+                std::ofstream fout { config.dirpath / std::format("frame_{:04}.bmp", frame_index_local), std::ios::binary };
 
                 if (fout.is_open()) {
                     tr::img::BMP bmp { config.screen_width, config.screen_height, };
