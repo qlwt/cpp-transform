@@ -89,6 +89,34 @@ bool sxm::numfn::min_validator(std::size_t arg_size) noexcept {
 namespace {
 
 template <typename Arg, auto Member>
+inline sxm::NumValue abs_proj(sxm::Range<Arg> arg_list) noexcept {
+    double real = std::abs(proj<Arg, Member>(arg_list.p_start).real);
+
+    return sxm::NumValue { real, };
+}
+
+}
+
+sxm::NumValue sxm::numfn::abs_fn_raw(sxm::Range<sxm::NumValue> arg_list) noexcept {
+    return abs_proj<sxm::NumValue, nullptr>(arg_list);
+}
+
+sxm::NumValue sxm::numfn::abs_fn_feval(sxm::Range<sxm::feval::NodeNum *> arg_list) noexcept {
+    return abs_proj<sxm::feval::NodeNum *, &sxm::feval::NodeNum::value>(arg_list);
+}
+
+sxm::NumValue sxm::numfn::abs_fn_leval(sxm::Range<sxm::leval::NodeNum *> arg_list) noexcept {
+    return abs_proj<sxm::leval::NodeNum *, &sxm::leval::NodeNum::value>(arg_list);
+}
+
+bool sxm::numfn::abs_validator(std::size_t arg_size) noexcept {
+    return arg_size == 1;
+}
+
+
+namespace {
+
+template <typename Arg, auto Member>
 inline sxm::NumValue ceil_proj(sxm::Range<Arg> arg_list) noexcept {
     double real = std::ceil(proj<Arg, Member>(arg_list.p_start).real);
 

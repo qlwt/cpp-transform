@@ -33,6 +33,12 @@ sxm::NumValue min_fn_leval(Range<sxm::leval::NodeNum *> arg_list) noexcept;
 bool min_validator(std::size_t arg_size) noexcept;
 constexpr Def min_def { min_fn_raw, min_fn_feval, min_fn_leval, min_validator, };
 
+sxm::NumValue abs_fn_raw(Range<sxm::NumValue> arg_list) noexcept;
+sxm::NumValue abs_fn_feval(Range<sxm::feval::NodeNum *> arg_list) noexcept;
+sxm::NumValue abs_fn_leval(Range<sxm::leval::NodeNum *> arg_list) noexcept;
+bool abs_validator(std::size_t arg_size) noexcept;
+constexpr Def abs_def { abs_fn_raw, abs_fn_feval, abs_fn_leval, abs_validator, };
+
 sxm::NumValue trunc_fn_raw(Range<sxm::NumValue> arg_list) noexcept;
 sxm::NumValue trunc_fn_feval(Range<sxm::feval::NodeNum *> arg_list) noexcept;
 sxm::NumValue trunc_fn_leval(Range<sxm::leval::NodeNum *> arg_list) noexcept;
@@ -159,8 +165,10 @@ sxm::NumValue b_fn_leval(Range<sxm::leval::NodeNum *> arg_list) noexcept;
 bool b_validator(std::size_t arg_size) noexcept;
 constexpr Def b_def { b_fn_raw, b_fn_feval, b_fn_leval, b_validator, };
 
-constexpr HMapConst<64, 23, Def> fnmap {
-    std::array<HMapConst_HNode<Def>, 23> {
+constexpr HMapConst<64, 24, Def> fnmap {
+    std::array<HMapConst_HNode<Def>, 24> {
+        HMapConst_HNode<Def>{ Range<const char>{ "abs" }, sxm::numfn::abs_def },
+
         HMapConst_HNode<Def>{ Range<const char>{ "b" }, sxm::numfn::b_def },
         HMapConst_HNode<Def>{ Range<const char>{ "trunc" }, sxm::numfn::trunc_def },
         HMapConst_HNode<Def>{ Range<const char>{ "floor" }, sxm::numfn::floor_def },
