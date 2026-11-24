@@ -17,31 +17,23 @@ add_executable(main
     src/tr/pattern.cpp
 )
 
-target_compile_options(main
-    PRIVATE
-        $<$<CONFIG:Debug>:-pthread>
-        $<$<CONFIG:Debug>:-g>
-        $<$<CONFIG:Debug>:-O1>
-        $<$<CONFIG:Debug>:-Wall>
-        $<$<CONFIG:Debug>:-Wextra>
-        $<$<CONFIG:Debug>:-fsanitize=address,undefined>
+add_compile_options(
+    $<$<CONFIG:Debug>:-pthread>
+    $<$<CONFIG:Debug>:-g>
+    $<$<CONFIG:Debug>:-O1>
+    $<$<CONFIG:Debug>:-Wall>
+    $<$<CONFIG:Debug>:-Wextra>
+    $<$<CONFIG:Debug>:-fsanitize=address,undefined>
+
+    $<$<CONFIG:Release>:-flto=auto>
+    $<$<CONFIG:Release>:-pthread>
+    $<$<CONFIG:Release>:-O3>
 )
 
-target_compile_options(main
-    PRIVATE
-        $<$<CONFIG:Release>:-flto=auto>
-        $<$<CONFIG:Release>:-pthread>
-        $<$<CONFIG:Release>:-O3>
-)
+add_link_options(
+    $<$<CONFIG:Debug>:-fsanitize=address,undefined>
 
-target_link_options(main
-    PRIVATE
-        $<$<CONFIG:Debug>:-fsanitize=address,undefined>
-)
-
-target_link_options(main
-    PRIVATE
-        $<$<CONFIG:Release>:-flto=auto>
+    $<$<CONFIG:Release>:-flto=auto>
 )
 
 target_include_directories(main
